@@ -1,4 +1,3 @@
-import { bindActionCreators } from "@reduxjs/toolkit";
 import { 
     startFetchMovieRatings, 
     succesFetchMovieRatings, 

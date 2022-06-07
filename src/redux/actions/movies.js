@@ -1,5 +1,15 @@
 import { createAction } from "@reduxjs/toolkit";
 
+//Iportar actions de slice por cuestiones demostrativas
+import {
+    startFetchMovieRatings as startFetchMovieRatingsSlice,
+    succesFetchMovieRatings as succesFetchMovieRatingsSlice,
+    errorFetchMovieRatings as errorFetchMovieRatingsSlice,
+    startFetchMovieDetail as startFetchMovieDetailSlice,
+    succesFetchMovieDetail as succesFetchMovieDetailSlice,
+    errorFetchMovieDetail as errorFetchMovieDetailSlice,
+} from "../slices/movies"
+
 const BASE_URL = "https://moviesdatabase.p.rapidapi.com/titles";
 const headers = {
     'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com',
@@ -13,14 +23,17 @@ export const errorFetchMovieRatings = createAction('ERROR_FETCH_MOVIE_RATINGS');
 
 export const fetchMovieRatings = (movieId) => async (dispatch) => {
     try {
-        dispatch(startFetchMovieRatings());
+        //dispatch(startFetchMovieRatings());
+        dispatch(startFetchMovieRatingsSlice());
 
         const response = await fetch(`${BASE_URL}/${movieId}/ratings`, { headers });
         const data = await response.json();
         
-        dispatch(succesFetchMovieRatings({ data }));
+        dispatch(succesFetchMovieRatingsSlice({ data }));
+        //dispatch(succesFetchMovieRatings({ data }));
     } catch (error) {
-        dispatch(errorFetchMovieRatings({ error }));
+        //dispatch(errorFetchMovieRatings({ error }));
+        dispatch(errorFetchMovieRatingsSlice({ error }));
     }
 };
 
@@ -31,13 +44,16 @@ export const errorFetchMovieDetail = createAction('ERROR_FETCH_MOVIE_DETAIL');
 
 export const fetchMovieDetail = (movieId) => async (dispatch) => {
     try {
-        dispatch(startFetchMovieDetail());
+        //dispatch(startFetchMovieDetail());
+        dispatch(startFetchMovieDetailSlice());
 
         const titleResponse = await fetch(`${BASE_URL}/${movieId}?info=mini_info`, { headers })
         const titleData = await titleResponse.json();
 
-        dispatch(succesFetchMovieDetail({ details: titleData }));
+        dispatch(succesFetchMovieDetailSlice({ details: titleData }));
+        //dispatch(succesFetchMovieDetail({ details: titleData }));
     } catch (error) { 
-        dispatch(errorFetchMovieDetail({ error }));
+        //dispatch(errorFetchMovieDetail({ error }));
+        dispatch(errorFetchMovieDetailSlice({ error }));
     }
 };

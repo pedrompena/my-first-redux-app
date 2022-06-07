@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import moviesImage from "../../img/movie-theater.png"
 import { useFetchMoviesQuery } from "../../redux/api/movies";
-import Loading from "./components/Loading";
+import Loading from "../../components/Loading";
 import List from "./components/List";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const Results = () => {
                 </div>
             );
         else if (isLoading || isFetching)
-            return <Loading />;
+            return <Loading message="Buscando peliculas..." />;
         else if (isSuccess && movies?.results)
             return <List data={movies?.results} onListItemClick={handleListItemClick} />;
     };
